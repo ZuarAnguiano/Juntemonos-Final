@@ -1,0 +1,73 @@
+[
+    {
+      "event_name": "Cultural",
+      "event_description": "An event filled with music, dance, and local art.",
+      "location": {
+        "latitude": 28.687638331005154,
+        "longitude": -100.5580857241378
+      },
+      "interests": ["Culture", "Music", "Art"],
+      "date": "2024-07-01"
+    },
+    {
+      "event_name": "Book",
+      "event_description": "Gathering of writers and book presentations.",
+      "location": {
+        "latitude": 28.69297579207878,
+        "longitude": -100.56186383386985
+      },
+      "interests": ["Literature", "Reading", "Authors"],
+      "date": "2024-07-15"
+    },
+    {
+      "event_name": "Rock Concert",
+      "event_description": "Local and international bands performing live.",
+      "location": {
+        "latitude": 28.688787751752887,
+        "longitude": -100.57116950101481
+      },
+      "interests": ["Music", "Rock", "Concerts"],
+      "date": "2024-08-05"
+    },
+    {
+      "event_name": "Art Exhibition",
+      "event_description": "Display of paintings and sculptures by local artists.",
+      "location": {
+        "latitude": 28.7065,
+        "longitude": -100.5330
+      },
+      "interests": ["Art", "Painting", "Sculpture"],
+      "date": "2024-08-20"
+    },
+    {
+      "event_name": "Gastronomic Festival",
+      "event_description": "Tasting of local dishes and gourmet cuisine.",
+      "location": {
+        "latitude": 28.7072,
+        "longitude": -100.5298
+      },
+      "interests": ["Gastronomy", "Cooking", "Food"],
+      "date": "2024-09-01"
+    },
+    {
+      "event_name": "Run",
+      "event_description": "Family-friendly sports event.",
+      "location": {
+        "latitude": 28.7088,
+        "longitude": -100.5275
+      },
+      "interests": ["Sport", "Health", "Exercise"],
+      "date": "2024-09-15"
+    },
+    {
+      "event_name": "Movie Night",
+      "event_description": "Outdoor screening of classic movies.",
+      "location": {
+        "latitude": 28.7094,
+        "longitude": -100.5318
+      },
+      "interests": ["Cinema", "Movies", "Entertainment"],
+      "date": "2024-09-30"
+    }
+  ]
+  
