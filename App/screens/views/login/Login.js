@@ -22,6 +22,7 @@ export default function Login({ email, setEmail, password, setPassword, login })
                     placeholderTextColor="#313131"
                     value={password}
                     onChangeText={setPassword}
+                    secureTextEntry={true}
                     style={styles.input}
                 />
             </View>

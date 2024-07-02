@@ -23,6 +23,12 @@ export default function ToggleButtons({ onSetTypeUser }) {
                     onPress={() => handleButtonPress('button2', 'premium')}
                     color={activeButton === 'button2' ? '#007AFF' : '#CCCCCC'}
                 />
+
+                <Button
+                    title="Premium Empresarial"
+                    onPress={() => handleButtonPress('button3', 'premium-empresarial')}
+                    color={activeButton === 'button3' ? '#007AFF' : '#CCCCCC'}
+                />
             </View>
         </View>
     );
@@ -31,7 +37,7 @@ export default function ToggleButtons({ onSetTypeUser }) {
 const styles = StyleSheet.create({
     container: {
         alignItems: 'center',
-        marginBottom:40
+        marginBottom: 40,
     },
     buttonContainer: {
         flexDirection: 'row',
@@ -39,10 +45,5 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: '100%',
         marginTop: 20,
-    },
-    button: {
-        padding: 10,
-        margin: 1,
-        borderRadius: 5,
     },
 });

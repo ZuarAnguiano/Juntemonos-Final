@@ -57,6 +57,7 @@ export default function FormRegister({
                     value={password}
                     onChangeText={setPassword}
                     style={styles.input}
+                    secureTextEntry={true}
                 />
             </View>
 
@@ -68,6 +69,7 @@ export default function FormRegister({
                     value={repeatPassword}
                     onChangeText={setRepeatPassword}
                     style={styles.input}
+                    secureTextEntry={true}
                 />
             </View>
 
