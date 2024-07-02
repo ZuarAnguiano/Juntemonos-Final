@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Navigation from './App/Navigation/Navigation';
-import { useLocationService } from './App/screens/HomeScreen/LocationService';
+import { useLocationService } from './App/components/LocationService';
 import { UserLocationContext } from './App/context/UserLocationContext';
 import { AuthProvider } from './App/context/AuthContext'
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
