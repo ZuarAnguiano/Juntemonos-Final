@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import Navigation from './App/Navigation/Navigation';
 import { useLocationService } from './App/screens/HomeScreen/LocationService';
-import { UserLocationContext } from './App/screens/HomeScreen/UserLocationContext';
+import { UserLocationContext } from './App/context/UserLocationContext';
+import { AuthProvider } from './App/context/AuthContext'
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 
 export default function App() {
@@ -18,8 +20,12 @@ export default function App() {
   }
 
   return (
-    <UserLocationContext.Provider value={{ location, setLocation }}>
-    <Navigation />
-    </UserLocationContext.Provider>
+    <GestureHandlerRootView>
+      <AuthProvider>
+        <UserLocationContext.Provider value={{ location, setLocation }}>
+          <Navigation />
+        </UserLocationContext.Provider>
+      </AuthProvider>
+    </GestureHandlerRootView>
   );
 }
