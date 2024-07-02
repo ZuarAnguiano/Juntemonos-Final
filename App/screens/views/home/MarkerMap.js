@@ -1,8 +1,10 @@
 import { View, Text, Image } from 'react-native'
 import React from 'react'
 import { Marker } from 'react-native-maps'
+import { useNavigation } from '@react-navigation/native';
 
 export default function MarkerMap({ place }) {
+    const navigation = useNavigation();
     //Marcador del mapa, para los eventos.
     return (
         <Marker
@@ -10,7 +12,7 @@ export default function MarkerMap({ place }) {
                 latitude: place.coordinates?.latitude,
                 longitude: place.coordinates?.longitude
             }}
-            onPress={() => { console.log('MOSTRAR DETALLE EVENTO O MOSTRAR ALGO', place.event_name) }}>
+            onPress={() => {navigation.navigate('DetailsEvent',  {id: place.id} )}}>
 
             {/* por si quiere persinalizar el marker con imagen*/}
             {/* <Image source={require('../../../assets/images/marker.png')} style={{width:60, height:60}}/> */}
