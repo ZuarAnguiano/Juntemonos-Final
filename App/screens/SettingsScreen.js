@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Button } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Button, Platform } from "react-native";
 import { auth } from '../../firebaseConfig';
 
 export default function SettingsScreen({ navigation }) {
@@ -8,7 +8,10 @@ export default function SettingsScreen({ navigation }) {
     const handleLogout = async () => {
         try {
             await auth.signOut();
-            navigation.navigate('Initiate');
+            navigation.reset({
+                index: 0,
+                routes: [{ name: 'Initiate' }],
+            });
 
         } catch (error) {
             console.error('Error al cerrar sesión:', error);
@@ -25,7 +28,11 @@ export default function SettingsScreen({ navigation }) {
             >Settings Screen</Text>
 
             <View style={styles.container}>
-                <Button title="Cerrar sesión" onPress={handleLogout} />
+                <Button
+                    color={Platform.OS === 'ios' ? '#fff' : '#d00281'}
+                    title="CERRAR SESION"
+                    onPress={handleLogout}
+                />
             </View>
         </View>
     );

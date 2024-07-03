@@ -1,5 +1,5 @@
-import React, { useContext, useState, useEffect } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React, { useContext, useState, useEffect} from 'react';
+import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 
 import ImgProfile from '../views/detailsUser/ImageProfile'
@@ -10,6 +10,7 @@ import { UsersModel } from '../models/UsersModel';
 import UserContext from '../../context/AuthContext'
 
 export default function DetailsUserController({navigation}) {
+  const [loading, setLoading] = useState(true);
   const { userId } = useContext(UserContext);
   //Guarda usuarios traidos de la bd
   const [user, setUser] = useState({});
@@ -26,9 +27,11 @@ export default function DetailsUserController({navigation}) {
   //Buscar el usuario con el id del context, hacemos uso de la clase "UsersModel"
   useEffect(() => {
     const fetchUserById = async () => {
+      setLoading(true);
         try {
             const unsubscribe = await UsersModel.getUserById(userId, (userData) => {
                 setUser(userData); // Actualizamos el estado del usuario con los datos recibidos
+                setLoading(false);
             });
 
             return () => unsubscribe();
@@ -83,6 +86,7 @@ export default function DetailsUserController({navigation}) {
 
   //Bucar todos los eventos de la bd, hacemos de uso de la clase "UsersModel" y "eventsModel"
   useEffect(() => {
+    setLoading(true);
     const fetchEvents = async () => {
       try {
         const userType = await UsersModel.checkUserType(userId);
@@ -91,10 +95,12 @@ export default function DetailsUserController({navigation}) {
         if (userType === 'freemium') {
           unsubscribe = EventsModel.listenToFreemiumEvents((events) => {
             setEvents(events);
+            setLoading(false);
           });
         } else {
           unsubscribe = EventsModel.listenToEvents((events) => {
             setEvents(events);
+            setLoading(false);
           });
         }
 
@@ -131,10 +137,10 @@ export default function DetailsUserController({navigation}) {
   }, [selectedInterests]);
 
 
-  if (!user) {
+ if (loading) {
     return (
-      <View>
-        <Text>Usuario no autenticado</Text>
+      <View style={styles.loader}>
+        <ActivityIndicator size="large" color="#9E9E9E" />
       </View>
     );
   }
@@ -163,6 +169,15 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: '#fff',
   },
+  loader: {
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    position: "absolute",
+    alignItems: "center",
+    justifyContent: "center",
+},
 
 });
 

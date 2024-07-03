@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Alert, ActivityIndicator } from 'react-native';
 import React, { useState, useEffect, useContext } from 'react';
 import { FontAwesome } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
@@ -7,6 +7,7 @@ import { UserLocationContext } from '../../context/UserLocationContext';
 import AppMapView from '../views/home/MapView';
 
 export default function HomeController({ navigation }) {
+  const [loading, setLoading] = useState(true);
   const [events, setEvents] = useState([]);
   const { location } = useContext(UserLocationContext);
   const [searchText, setSearchText] = useState('');
@@ -15,6 +16,7 @@ export default function HomeController({ navigation }) {
   useEffect(() => {
     const unsubscribe = EventsModel.listenToEvents((events) => {
       setEvents(events);
+      setLoading(false);
     });
 
     return () => unsubscribe();
@@ -45,6 +47,13 @@ export default function HomeController({ navigation }) {
     }
   };
 
+  if (loading) {
+    return (
+      <View style={styles.loader}>
+        <ActivityIndicator size="large" color="#9E9E9E" />
+      </View>
+    );
+  }
   return (
     <View style={styles.container}>
       <AppMapView
@@ -69,6 +78,15 @@ export default function HomeController({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  loader: {
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    position: "absolute",
+    alignItems: "center",
+    justifyContent: "center",
   },
   iconsContainer: {
     flexDirection: 'row',

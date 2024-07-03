@@ -1,7 +1,9 @@
-import { View, Text, StyleSheet, Button, TextInput, Platform } from 'react-native'
+import { View, Text, StyleSheet, Button, TextInput, TouchableOpacity, Platform } from 'react-native'
 import React from 'react'
+import { useNavigation } from '@react-navigation/native';
 
 export default function Login({ email, setEmail, password, setPassword, login }) {
+    const navigation = useNavigation();
     return (
         <View style={styles.container}>
             <View style={styles.inputContainer}>
@@ -26,6 +28,9 @@ export default function Login({ email, setEmail, password, setPassword, login })
                     style={styles.input}
                 />
             </View>
+            <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')}>
+                <Text style={styles.forgotPassword}>¿Olvidaste tu contraseña?</Text>
+            </TouchableOpacity>
 
             <View style={styles.button}>
                 <Button

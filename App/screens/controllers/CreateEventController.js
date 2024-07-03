@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { View,StyleSheet, Button,ScrollView } from 'react-native';
+import { View, StyleSheet, Button, ScrollView, ActivityIndicator} from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { UserLocationContext } from '../../context/UserLocationContext';
-import {UsersModel} from '../models/UsersModel'
+import { UsersModel } from '../models/UsersModel'
 import { EventsModel } from '../models/EventsModel';
 import EventForm from '../views/createEvent/FormEvent';
 import EventMap from '../views/createEvent/EventMap';
@@ -11,7 +11,8 @@ import Interest from '../views/createEvent/Interest';
 import UserContext from '../../context/AuthContext'
 
 
-export default function CreateEventController({navigation}) {
+export default function CreateEventController({ navigation }) {
+    const [loading, setLoading] = useState(false);
     const [textNameEvent, setTextNameEvent] = useState('');
     const [textDescription, setTextDescription] = useState('');
     const [date, setDate] = useState(new Date());
@@ -104,8 +105,8 @@ export default function CreateEventController({navigation}) {
             alert("Por Favor Ingresa el Nombre del Evento");
             return;
         }
-
         try {
+            setLoading(true);
             const userType = await UsersModel.checkUserType(userId);
             const eventLimit = await EventsModel.checkEventLimit(userId);
 
@@ -132,9 +133,18 @@ export default function CreateEventController({navigation}) {
             }
         } catch (error) {
             console.error('Error saving event:', error);
+        } finally {
+            setLoading(false);
         }
     };
 
+    if (loading) {
+        return (
+            <View style={styles.loader}>
+                <ActivityIndicator size="large" color="#9E9E9E" />
+            </View>
+        );
+    }
     return (
         <View style={styles.container}>
             <ScrollView style={styles.ContainerScroll}>
@@ -194,6 +204,15 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: "#fff"
+    },
+    loader: {
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0,
+        position: "absolute",
+        alignItems: "center",
+        justifyContent: "center",
     },
     ContainerScroll: {
         paddingHorizontal: 40,

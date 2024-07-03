@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth';
 import { setDoc, doc, collection, query, where, getDocs, onSnapshot,} from 'firebase/firestore';
 import { db, auth } from '../../../firebaseConfig';
 
@@ -74,6 +74,10 @@ export class UsersModel {
       return userDoc.data().typeUser; // Devuelve el tipo de usuario
     }
     throw new Error('Usuario no encontrado');
+  }
+
+  static async resetPassword(email) {
+    await sendPasswordResetEmail(auth, email);
   }
 
 }

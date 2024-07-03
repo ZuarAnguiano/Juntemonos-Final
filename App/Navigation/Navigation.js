@@ -9,6 +9,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import InitiateController from '../screens/controllers/InitiateController'
 import LoginController from '../screens/controllers/LoginController'
 import RegisterController from '../screens/controllers/RegisterController'
+import ForgotPasswordController from '../screens/controllers/ForgetPassController';
 import HomeController from "../screens/controllers/HomeController";
 
 import EventsController from "../screens/controllers/EventsController";
@@ -92,6 +93,11 @@ export default function MyStack() {
                 <Stack.Screen
                     name="CreateEvent"
                     component={CreateEventController}
+                />
+
+                <Stack.Screen
+                    name="ForgotPassword"
+                    component={ForgotPasswordController}
                 />
 
                 <Stack.Screen

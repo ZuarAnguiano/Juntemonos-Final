@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native'
 import React, { useState, useContext, useEffect} from 'react'
 
 import { EventsModel } from '../models/EventsModel';
@@ -8,6 +8,7 @@ import EventHistory from '../views/events/EventHistory'
 import UserContext from '../../context/AuthContext'
 
 export default function EventsController({ navigation }) {
+  const [loading, setLoading] = useState(true);
   const { userId } = useContext(UserContext);
   const [events, setEvents] = useState([]);
 
@@ -16,6 +17,7 @@ export default function EventsController({ navigation }) {
   //Bucar todos los eventos de la bd, hacemos de uso de la clase "UsersModel"
   useEffect(() => {
     const fetchEvents = async () => {
+      setLoading(true);
       try {
         const userType = await UsersModel.checkUserType(userId);
 
@@ -23,10 +25,12 @@ export default function EventsController({ navigation }) {
         if (userType === 'freemium') {
           unsubscribe = EventsModel.listenToFreemiumEvents((events) => {
             setEvents(events);
+            setLoading(false);
           });
         } else {
           unsubscribe = EventsModel.listenToEvents((events) => {
             setEvents(events);
+            setLoading(false);
           });
         }
 
@@ -46,6 +50,14 @@ export default function EventsController({ navigation }) {
       setEvents(events.filter(event => event.id !== eventId));
     }
   };
+
+  if (loading) {
+    return (
+      <View style={styles.loader}>
+        <ActivityIndicator size="large" color="#9E9E9E" />
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
@@ -88,6 +100,15 @@ const styles = StyleSheet.create({
     textAlign: "center",
 
   },
+  loader: {
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    position: "absolute",
+    alignItems: "center",
+    justifyContent: "center",
+},
 
 
 });
