@@ -1,5 +1,5 @@
 import { db } from '../../../firebaseConfig';
-import { collection, addDoc, getDocs, deleteDoc, doc,where, onSnapshot, query, getDoc } from 'firebase/firestore';
+import { collection, addDoc, getDocs, deleteDoc, doc, where, onSnapshot, query, getDoc } from 'firebase/firestore';
 
 export class EventsModel {
 
@@ -33,24 +33,45 @@ export class EventsModel {
     // Obtiene un evento por su ID
     static async getEventById(eventId, callback) {
         try {
-          const docRef = doc(db, 'events', eventId);
-    
-          const unsubscribe = onSnapshot(docRef, (docSnap) => {
-            if (docSnap.exists()) {
-              const event = { id: docSnap.id, ...docSnap.data() };
-              callback(event);
-            } else {
-              console.log('No such document!');
-              callback(null); // Llamar al callback con null si no existe el documento
-            }
-          });
-    
-          return unsubscribe; // Devolver la función de cancelación del listener
+            const docRef = doc(db, 'events', eventId);
+
+            const unsubscribe = onSnapshot(docRef, (docSnap) => {
+                if (docSnap.exists()) {
+                    const event = { id: docSnap.id, ...docSnap.data() };
+                    callback(event);
+                } else {
+                    console.log('No such document!');
+                    callback(null); // Llamar al callback con null si no existe el documento
+                }
+            });
+
+            return unsubscribe; // Devolver la función de cancelación del listener
         } catch (error) {
-          console.error('Error getting user:', error);
-          throw error; // Mostrar error
+            console.error('Error getting user:', error);
+            throw error; // Mostrar error
         }
-      }
+    }
+
+    // Función para obtener los eventos creados por un usuario específico
+    static async getUserEvents(userId, callback) {
+        try {
+            const eventsRef = collection(db, 'events');
+            const q = query(eventsRef, where('createBy', '==', userId));
+
+            const unsubscribe = onSnapshot(q, (querySnapshot) => {
+                const userEvents = [];
+                querySnapshot.forEach((doc) => {
+                    userEvents.push({ id: doc.id, ...doc.data() });
+                });
+                callback(userEvents);
+            });
+
+            return unsubscribe;
+        } catch (error) {
+            console.error('Error listening to user events:', error);
+            return () => { }; 
+        }
+    }
 
     // Función para guardar el evento en la base de datos
     static async saveEvent(event) {
@@ -92,14 +113,14 @@ export class EventsModel {
     static listenToFreemiumEvents(callback) {
         const currentDate = new Date();
         currentDate.setUTCHours(22, 0, 0, 0); // Establecer las 10 PM en UTC
-    
+
         const eventsRef = collection(db, 'events');
         const q = query(eventsRef, where('date', '>', currentDate));
-    
+
         return onSnapshot(q, (snapshot) => {
-          const events = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-          callback(events);
+            const events = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            callback(events);
         });
-      }
+    }
 
 }

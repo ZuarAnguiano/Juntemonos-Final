@@ -4,7 +4,7 @@ import React from 'react'
 export default function Initiate({navigateToLR}) {
   return (
     <View style={styles.container}>
-      <Text style={styles.textTitle}>Welcome</Text>
+      <Text style={styles.textTitle}>Bienvenidos</Text>
       <View style={styles.button}>
         <Button
           color={ Platform.OS === 'ios' ? '#fff' : '#d00281'}
@@ -15,7 +15,7 @@ export default function Initiate({navigateToLR}) {
       <View style={styles.button}>
         <Button
           color={ Platform.OS === 'ios' ? '#fff' : '#d00281'}
-          title="REGISTER"
+          title="REGISTRO"
           onPress={()=>{navigateToLR("Register")}}
         />
       </View>

@@ -2,13 +2,13 @@ import { View, Text, StyleSheet, TouchableOpacity, Image, ScrollView } from 'rea
 import React from 'react'
 import ModalPhoto from './ModalPhoto'
 
-export default function ImgProfile({isModalVisible, setIsModalVisible, user, uploadImage, image}) {
+export default function ImgProfile({ isModalVisible, setIsModalVisible, user, uploadImage, image }) {
 
     const defaultImage = require('../../../../assets/favicon.png')
     return (
         <View style={styles.profileSection}>
             <View style={styles.imgContainer}>
-                <Image source={{ uri: image}} defaultSource={defaultImage} style={styles.image} />
+                <Image source={user.imageUrl ? { uri: user.imageUrl } : defaultImage} style={styles.image}/>
                 <TouchableOpacity>
                     <Text style={styles.changePhotoText} onPress={() => setIsModalVisible(true)}>Cambiar foto</Text>
                 </TouchableOpacity>
@@ -17,7 +17,6 @@ export default function ImgProfile({isModalVisible, setIsModalVisible, user, upl
             <View style={styles.personalData}>
                 <ScrollView >
                     <Text style={styles.headerText}>Datos Personales</Text>
-                    <Text>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</Text>
                     <Text>Nombre: {`${user.name}`}</Text>
                     <Text>Email: {user.email}</Text>
                     <Text>Edad: {user.age} años</Text>

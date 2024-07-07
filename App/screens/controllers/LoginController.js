@@ -15,7 +15,7 @@ export default function LoginController({ navigation }) {
   async function login() {
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      console.log('Inicie sesión exitosamente! \n', userCredential.user.uid);
+      console.log('Inicio sesión exitosamente! \n', userCredential.user.uid);
       // Actualiza el estado del usuario en el contexto
       setUserId(userCredential.user.uid);
       // Reinicia la navegación para evitar que el usuario regrese a la pantalla de inicio de sesión
@@ -25,7 +25,7 @@ export default function LoginController({ navigation }) {
         routes: [{ name: 'Tabs' }],
       });
 
-      alert('Inicié sesión exitosamente, bienvenido!');
+      alert('Inicio sesión exitosamente, bienvenido!');
     } catch (error) {
       console.error('Error al iniciar sesión:', error);
       alert('Correo o contraseña incorrectos!');

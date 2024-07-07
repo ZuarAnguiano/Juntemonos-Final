@@ -111,7 +111,7 @@ export default function CreateEventController({ navigation }) {
             const eventLimit = await EventsModel.checkEventLimit(userId);
 
             if (userType === 'freemium' && eventLimit >= 2) {
-                alert("Los usuarios freemium solo pueden crear hasta 2 eventos. Por favor, actualiza a premium para crear más eventos.");
+                alert("Los usuarios freemium solo pueden crear hasta 2 eventos diarios . Por favor, actualiza a premium para crear más eventos.");
                 return;
             }
 
@@ -193,7 +193,7 @@ export default function CreateEventController({ navigation }) {
                 )}
 
                 <View style={styles.button}>
-                    <Button title='Guardar' onPress={SaveEvent} />
+                    <Button title='guardar' onPress={SaveEvent} />
                 </View>
             </ScrollView>
         </View>

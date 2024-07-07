@@ -30,8 +30,8 @@ export default function EventMap({ markerCoords, handleMarkerDrag }) {
 
 const styles = StyleSheet.create({
     mapContainer: {
-        width: '100 %',
-        height: 450,
+        width: '100%',
+        height: 150,
         borderWidth: 1,
         borderColor: '#000',
         marginBottom: 30,

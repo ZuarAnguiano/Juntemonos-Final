@@ -33,11 +33,11 @@ function MyTabs() {
                 name="Home"
                 component={HomeController}
                 options={{
-                    tabBarLabel: 'Feed',
+                    tabBarLabel: 'inicio',
                     tabBarIcon: ({ color, size }) => (
                         <MaterialCommunityIcons name="home" color={color} size={30} />
                     ),
-                    tabBarBadge: 10,
+                 
                 }}
             />
 
@@ -45,7 +45,7 @@ function MyTabs() {
                 name="Settings"
                 component={SettingsScreen}
                 options={{
-                    tabBarLabel: 'Settings',
+                    tabBarLabel: 'configuraciones',
                     tabBarIcon: ({ color, size }) => (
                         <MaterialCommunityIcons name="brightness-5" color={color} size={30} />
                     ),

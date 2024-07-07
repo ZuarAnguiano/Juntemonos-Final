@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#000',
         padding: 5,
-        marginBottom: 80,
+        marginBottom: 10,
         flex: 1
     },
     headerText: {

@@ -1,7 +1,7 @@
 import { createUserWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth';
-import { setDoc, doc, collection, query, where, getDocs, onSnapshot,} from 'firebase/firestore';
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { setDoc, doc, collection, query, where, getDocs, onSnapshot, getFirestore, updateDoc } from 'firebase/firestore';
 import { db, auth } from '../../../firebaseConfig';
-
 
 export class UsersModel {
 
@@ -25,7 +25,8 @@ export class UsersModel {
         name: dataUser.name,
         birthdate: dataUser.birthdate,
         typeUser: dataUser.typeUser,
-        age: dataUser.age
+        age: dataUser.age,
+        interests: []
       });
       console.log('Usuario registrado:', dataUser);
       return user;
@@ -78,6 +79,46 @@ export class UsersModel {
 
   static async resetPassword(email) {
     await sendPasswordResetEmail(auth, email);
+  }
+
+  static async saveImg(uri, userId) {
+    try {
+      const response = await fetch(uri);
+      const blob = await response.blob();
+      // Obtener la referencia de storage
+      const storage = getStorage();
+      const storageRef = ref(storage, "imgs/" + userId);
+      // Subir el blob a Firebase Storage
+      await uploadBytes(storageRef, blob);
+      // Obtener la URL de la imagen
+      const downloadURL = await getDownloadURL(storageRef);
+      // Guardar la URL de la imagen en el documento del usuario
+      const userRef = doc(db, 'users', userId);
+      await updateDoc(userRef, {
+        imageUrl: downloadURL
+      });
+      // Devolver la URL de la imagen
+      return downloadURL;
+    } catch (error) {
+      console.log("Error al guardar la imagen:", error);
+      throw error;
+    }
+  }
+
+  //agregar los intereses del usaurio a su documento
+  static async updateInterests(userId, interests) {
+    try {
+      // Obtener referencia al documento del usuario
+      const userRef = doc(db, 'users', userId);
+      // Actualizar el campo 'interests' en el documento del usuario
+      await updateDoc(userRef, {
+        interests: interests
+      });
+      console.log('Intereses actualizados en Firestore:', interests);
+    } catch (error) {
+      console.error('Error al actualizar intereses en Firestore:', error);
+      throw error;
+    }
   }
 
 }

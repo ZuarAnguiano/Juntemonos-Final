@@ -21,7 +21,7 @@ export default function FormRegister({
             <View style={styles.inputContainer}>
                 <Text>Nombre</Text>
                 <TextInput
-                    placeholder="type your username"
+                    placeholder="Escriba aqui su nombre"
                     placeholderTextColor="#313131"
                     value={name}
                     onChangeText={setName}
@@ -52,7 +52,7 @@ export default function FormRegister({
             <View style={styles.inputContainer}>
                 <Text>Contraseña</Text>
                 <TextInput
-                    placeholder="Password"
+                    placeholder="Contraseña"
                     placeholderTextColor="#313131"
                     value={password}
                     onChangeText={setPassword}
@@ -64,7 +64,7 @@ export default function FormRegister({
             <View style={styles.inputContainer}>
                 <Text>Repetir Contraseña</Text>
                 <TextInput
-                    placeholder="Repeat password"
+                    placeholder="Repetir Contraseña"
                     placeholderTextColor="#313131"
                     value={repeatPassword}
                     onChangeText={setRepeatPassword}
@@ -76,7 +76,7 @@ export default function FormRegister({
             <View style={styles.button}>
                 <Button
                     color={Platform.OS === 'ios' ? '#fff' : '#d00281'}
-                    title="REGISTER"
+                    title="REGISTRARSE"
                     onPress={handleRegister}
                 />
             </View>
@@ -85,7 +85,7 @@ export default function FormRegister({
                 style={styles.loginText}
                 onPress={() => navigation.navigate('Login')}
             >
-                ¿Te registraste? Haga clic aquí para ingresar
+                ¿Ya tienes cuenta? Haga clic aquí para ingresar
             </Text>
 
         </View>

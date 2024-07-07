@@ -48,9 +48,9 @@ const styles = StyleSheet.create({
     },
     mapContainer: {
         width: '100%',
-        height: '70%',
-        borderRadius: 300,
-        overflow: 'hidden',
+        height: '100%',
+        borderRadius: 0,
+        overflow: 'hiddem',
     },
     map: {
         ...StyleSheet.absoluteFillObject,

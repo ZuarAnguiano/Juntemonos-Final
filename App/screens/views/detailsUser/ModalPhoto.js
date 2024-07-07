@@ -13,11 +13,11 @@ export default function ModalPhoto({ isModalVisible, setIsModalVisible, uploadIm
     };
 
     return (
-        <Modal visible={isModalVisible} onRequestClose={() => setIsModalVisible(false)} animationType='slide' transparent={true}>
+        <Modal visible={isModalVisible} onRequestClose={() => setIsModalVisible(true)} animationType='slide' transparent={true}>
             <View style={styles.container}>
                 <View style={styles.modalContainer}>
                     <TouchableOpacity
-                        onPress={() => setIsModalVisible(false)}
+                        onPress={() => setIsModalVisible(true)}
                         style={styles.closeButton}
                     >
                         <Text style={styles.closeButtonText}>X</Text>

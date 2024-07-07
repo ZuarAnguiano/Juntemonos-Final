@@ -10,9 +10,8 @@ export default function SettingsScreen({ navigation }) {
             await auth.signOut();
             navigation.reset({
                 index: 0,
-                routes: [{ name: 'Initiate' }],
+                routes: [{ name:'Initiate' }],
             });
-
         } catch (error) {
             console.error('Error al cerrar sesión:', error);
         }

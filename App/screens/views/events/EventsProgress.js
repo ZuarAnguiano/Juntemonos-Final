@@ -1,6 +1,5 @@
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
-import SwipeableItem from '../../../components/SwipeableItem'
 import { useNavigation } from '@react-navigation/native';
 
 export default function EventsProgress({ events, onDeleteEvent }) {
@@ -14,13 +13,11 @@ export default function EventsProgress({ events, onDeleteEvent }) {
             <View style={styles.DataEvent}>
                 <ScrollView>
                     {events && events.map((event, index) => (
-                        <SwipeableItem key={index} onSwipeRight={() => onDeleteEvent(event.id)}>
-                            <TouchableOpacity onPress={() => {navigation.navigate('DetailsEvent',  {id: event.id} )}}>
+                            <TouchableOpacity key={index} onPress={() => {navigation.navigate('DetailsEvent',  {id: event.id} )}}>
                                 <Text style={styles.textEvents}>
                                     {event.name}
                                 </Text>
                             </TouchableOpacity>
-                        </SwipeableItem>
                     ))}
                 </ScrollView>
             </View>

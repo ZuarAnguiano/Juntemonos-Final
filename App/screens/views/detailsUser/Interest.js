@@ -1,18 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import Checkbox from 'expo-checkbox';
 import Interest from '../../../Utils/Interest.json';
 
-export default function Intereses({ handleInterestChange}) {
+export default function Intereses({ handleInterestChange, user }) {
 
-    const [interestSelection, setInterestSelection] = useState({});
+    const [interestSelection, setInterestSelection] = useState([]);
+
+    // Efecto para inicializar interestSelection con los intereses actuales del usuario
+    useEffect(() => {
+        if (user && Array.isArray(user.interests)) {
+            setInterestSelection(user.interests);
+        } else {
+            setInterestSelection([]); 
+        }
+    }, [user]);
 
     // Función para manejar el cambio de estado de un checkbox específico
     const handleCheckboxChange = (interest, isChecked) => {
-        const updatedSelection = { ...interestSelection, [interest]: isChecked };
+        const updatedSelection = isChecked
+            ? [...interestSelection, interest]
+            : interestSelection.filter(item => item !== interest);
+
         setInterestSelection(updatedSelection);
+
         if (handleInterestChange) {
-            handleInterestChange(interest, isChecked); // Llama a la función de la vista principal con el interés y si está seleccionado o no
+            handleInterestChange(updatedSelection); // Llama a la función de la vista principal con el interés y si está seleccionado o no
         }
     };
 
@@ -20,11 +33,11 @@ export default function Intereses({ handleInterestChange}) {
         <View style={styles.sectionInterest}>
             <Text style={styles.headerText}>Intereses</Text>
             <View style={styles.columnsContainer}>
-                {Interest.interest.map((interest, index) => (
+                {Array.isArray(Interest.interest) && Interest.interest.map((interest, index) => (
                     <View key={index} style={{ flexDirection: 'row', width: '25%' }}>
                         <View style={styles.checkboxContainer}>
                             <Checkbox
-                                value={interestSelection[interest] || false}
+                                value={Array.isArray(interestSelection) && interestSelection.includes(interest)}
                                 onValueChange={(isChecked) => handleCheckboxChange(interest, isChecked)}
                                 color={'#d00281'}
                                 style={styles.checkbox}

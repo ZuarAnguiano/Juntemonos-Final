@@ -5,6 +5,8 @@ import { useNavigation } from '@react-navigation/native';
 export default function Login({ email, setEmail, password, setPassword, login }) {
     const navigation = useNavigation();
     return (
+
+        
         <View style={styles.container}>
             <View style={styles.inputContainer}>
                 <Text>Email</Text>

@@ -1,33 +1,42 @@
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
-import React from 'react'
-import StarRating from '../../../components/Stars';
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-import AntDesign from '@expo/vector-icons/AntDesign';
+import React, { useState } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { AntDesign, MaterialIcons } from '@expo/vector-icons';
 
+const StarRating = ({ rating, setRating }) => {
+    const stars = [];
+    for (let i = 1; i <= 5; i++) {
+        stars.push(
+            <TouchableOpacity key={i} onPress={() => setRating(i)}>
+                <AntDesign name={i <= rating ? "star" : "staro"} size={32} color="gold" />
+            </TouchableOpacity>
+        );
+    }
+    return <View style={styles.stars}>{stars}</View>;
+};
 
-export default function Reviews(rating) {
+const EventReviews = () => {
+    const [rating, setRating] = useState(0);
+
     return (
         <View style={styles.reviews}>
             <View style={styles.ratingContainer}>
                 <Text style={styles.headerText}>Reseñas del evento</Text>
                 <View style={styles.starsContainer}>
-                    {/* Componente de las estrellas, mando la variable rating */}
-                    <StarRating rating={rating.rating} />
+                    <StarRating rating={rating} setRating={setRating} />
                     <View style={styles.pieChart}>
                         <AntDesign name="piechart" size={54} color="purple" />
                     </View>
                 </View>
             </View>
-
             <TouchableOpacity>
                 <View style={styles.comments}>
                     <MaterialIcons name="message" size={55} color="purple" />
-                    <Text style={styles.textComment}>Comentarios</Text>
+                    <Text style={styles.textComment}> Comentarios </Text>
                 </View>
             </TouchableOpacity>
         </View>
-    )
-}
+    );
+};
 
 const styles = StyleSheet.create({
     reviews: {
@@ -61,4 +70,9 @@ const styles = StyleSheet.create({
         color: '#d00281',
         textDecorationLine: 'underline',
     },
-})
+    stars: {
+        flexDirection: 'row',
+    }
+});
+
+export default EventReviews;

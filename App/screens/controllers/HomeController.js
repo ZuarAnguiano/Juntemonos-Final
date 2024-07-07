@@ -65,10 +65,10 @@ export default function HomeController({ navigation }) {
       />
       <View style={styles.iconsContainer}>
         <TouchableOpacity onPress={() => navigation.navigate('DetailsUser')}>
-          <FontAwesome name="user-circle-o" size={54} color="#d00281" />
+          <FontAwesome name="user-circle-o" size={40} color="#d00281" />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('Events')}>
-          <FontAwesome5 name="clipboard-list" size={54} color="#d00281" />
+          <FontAwesome5 name="clipboard-list" size={40} color="#d00281" />
         </TouchableOpacity>
       </View>
     </View>
@@ -87,10 +87,15 @@ const styles = StyleSheet.create({
     position: "absolute",
     alignItems: "center",
     justifyContent: "center",
+    zindex: 1,
   },
   iconsContainer: {
+    position: 'absolute',
+    bottom: 30,
+    left: 0,
+    right: 0,
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginHorizontal: 30,
+    justifyContent: 'space-around',
+    marginHorizontal: -112,
   },
 });
